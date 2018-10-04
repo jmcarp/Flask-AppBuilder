@@ -32,7 +32,9 @@ class SQLA(SQLAlchemy):
     """
     def make_declarative_base(self, metadata=None):
         """Creates the declarative base."""
-        base = Model
+        base = declarative_base(cls=Model, name='Model',
+                                metadata=metadata,
+                                metaclass=ModelDeclarativeMeta)
         base.query = _QueryProperty(self)
         return base
 
@@ -82,7 +84,7 @@ class Model(object):
             result[key] = col
         return result
 
-
+    
 
 """
     This is for retro compatibility
